@@ -29,7 +29,6 @@ class GF1p128 {
   GF1p128(uint64 lo, uint64 hi) : c_(_mm_set_epi64x(hi, lo)) {}
 
   __m128i c() const { return c_; }
-  GF1p128 operator+(const GF1p128 b) const { return GF1p128(c_ ^ b.c_); }
 
   bool operator==(const GF1p128 b) const {
     return _mm_movemask_epi8(
