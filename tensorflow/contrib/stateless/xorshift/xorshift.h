@@ -45,30 +45,12 @@ limitations under the License.
 #ifndef TENSORFLOW_CONTRIB_STATELESS_XORSHIFT_XORSHIFT_H_
 #define TENSORFLOW_CONTRIB_STATELESS_XORSHIFT_XORSHIFT_H_
 
-#include <emmintrin.h>
 #include <array>
 #include "tensorflow/core/platform/types.h"
 
 namespace tensorflow {
 
 using uint128 = __uint128_t;
-
-// GF(2^128) represented modulo x^128 + x^7 + x^2 + x + 1.
-// Exposed only for testing purposes; do not use directly.
-class GF1p128 {
- public:
-  explicit GF1p128(__m128i c) : c_(c) {}
-  GF1p128(uint64 lo, uint64 hi) : c_(_mm_set_epi64x(hi, lo)) {}
-
-  __m128i c() const { return c_; }
-  GF1p128 operator+(const GF1p128 b) const { return GF1p128(c_ ^ b.c_); }
-  bool operator==(const GF1p128 b) const;
-
- private:
-  __m128i c_;
-};
-
-GF1p128 operator*(const GF1p128 a, const GF1p128 b);
 
 // One step of xorshift128+
 inline std::array<uint64, 2> XorshiftStep(const std::array<uint64, 2> state) {

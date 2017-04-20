@@ -9,6 +9,7 @@ package(default_visibility = ["//tensorflow:__subpackages__"])
 cc_library(
     name = "xorshift",
     srcs = [
+        "gf1p128.h",
         "xorshift_generated.h",
         "xorshift.cc",
     ],
@@ -26,7 +27,14 @@ cc_library(
 
 cc_test(
     name = "xorshift_test",
-    srcs = ["xorshift_test.cc"],
+    srcs = [
+        "gf1p128.h",
+        "xorshift_test.cc",
+    ],
+    copts = [
+        "-mavx2",
+        "-mpclmul",
+    ],
     deps = [
         ":xorshift",
         "//tensorflow/core:test",

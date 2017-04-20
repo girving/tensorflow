@@ -15,6 +15,7 @@ limitations under the License.
 // Tests for xorshift128+ random access
 
 #include <vector>
+#include "tensorflow/contrib/stateless/xorshift/gf1p128.h"
 #include "tensorflow/contrib/stateless/xorshift/xorshift.h"
 #include "tensorflow/core/lib/strings/strcat.h"
 #include "tensorflow/core/platform/test.h"
